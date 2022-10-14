@@ -106,7 +106,7 @@ sicvar = "Insc07m" #industry (SIC)
 socvar = "SOC10M" #occupation (SOC)
 
 # Load list of 4-digit SOCs
-df = pd.read_csv(open(f'{home}data/20220520 KF PrePub 2001646/soc_int_key_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
+df = pd.read_csv(open(f'{home}data/soc_int_key_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
 soc_4digit_list = df['SOC10M'].tolist()
 
 # Get measurement scales
