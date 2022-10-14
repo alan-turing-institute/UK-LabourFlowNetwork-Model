@@ -1,4 +1,4 @@
-# UK Labour Flow Network (LFN) Model **UNDER CONSTRUCTION**
+# UK Labour Flow Network (LFN) Model **[UNDER CONSTRUCTION]**
 
 Simulation and model-fitting code for manuscript by Fair & Guerrero (2022). Model emerges the LFN describing the patterns of labour mobility (i.e. job-to-job transitions) within the UK labour market. The associated preprint is posted at TKTKTK.
 
