@@ -39,4 +39,8 @@ All software should install within a few minutes on a standard computer, the ver
 
 ## Contact Information
 
-This project was developed by K.R. Fair and O.A. Guerrero, within the _Modeling for Policy_ theme of the Alan Turing Institute's Public Policy Programme. Please direct all correspondence to K.R. Fair (kfair@turing.ac.uk).
+This project was developed by K.R. Fair and O.A. Guerrero, within the Alan Turing Institute's Public Policy Programme. Please direct all correspondence to K.R. Fair (kfair@turing.ac.uk).
+
+## Acknowledgements
+
+We thank Andy Jones and his team at BEIS, as well as Áron Pap and Dr. Alden Conner for their contributions to the development of this model and associated repository.
