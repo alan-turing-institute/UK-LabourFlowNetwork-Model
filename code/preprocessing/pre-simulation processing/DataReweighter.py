@@ -25,7 +25,7 @@ socvar = "SC10MMJ" #occupation (SOC)
 ### REWEIGHT JOB DISTRIBUTION ###
 
 ### Read in data
-df_positions = pd.read_csv(open(f'{home}data/20220520 KF PrePub 2001646/positiondist_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
+df_positions = pd.read_csv(open(f'{home}data/positiondist_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
 df_positions = df_positions[df_positions.reg_id!=22].copy()
 
 ### Perform weighted counts of jobs based on (region, sic, soc) groupings
@@ -50,7 +50,7 @@ df_ind.to_csv(f'{home}data/positionsbyindustry_LFS_{regvar}_{sicvar}_{socvar}.cs
 ### REWEIGHT CONSUMPTION PREFERENCE DISTRIBUTION ###
 
 ### Read in data
-df_cpr = pd.read_csv(open(f'{home}data/20220520 KF PrePub 2001646/consumptionpref_dist_LFS.csv'))
+df_cpr = pd.read_csv(open(f'{home}data/consumptionpref_dist_LFS.csv'))
 df_cpr = df_cpr[df_cpr>0]
 
 ### Perform weighted counts of consumption preference values
@@ -68,7 +68,7 @@ df_cpr_revised[['consumption_pref']].to_csv(f'{home}data/consumptionpref_dist_re
 ### REWEIGHT AGE DISTRIBUTION ###
 
 ### Read in data
-df_age = pd.read_csv(open(f'{home}data/20220520 KF PrePub 2001646/age_dist_LFS.csv'), dtype="float64")
+df_age = pd.read_csv(open(f'{home}data/age_dist_LFS.csv'), dtype="float64")
 
 ### Perform weighted counts of age values
 df_summary = df_age.groupby(['AGE'])['LGWT18'].agg(weight_sum='sum').reset_index().copy()
