@@ -1,6 +1,8 @@
 # UK Labour Flow Network (LFN) Model **[UNDER CONSTRUCTION]**
 
-Simulation and model-fitting code for manuscript by Fair & Guerrero (2022). Model emerges the LFN describing the patterns of labour mobility (i.e. job-to-job transitions) within the UK labour market. The associated preprint is posted at TKTKTK.
+This public repository contains code and data associated with the UK LFN model. This model emerges the LFN describing the patterns of labour mobility (i.e. job-to-job transitions) within the UK labour market. The associated preprint is posted at TKTKTK.
+
+This project was developed by [K.R. Fair](https://www.turing.ac.uk/people/researchers/kathyrn-r-fair) and [O.A. Guerrero](http://oguerr.com/), within the Public Policy Programme at the [Alan Turing Institute](https://www.turing.ac.uk/). Please direct all correspondence to K.R. Fair (kfair@turing.ac.uk).
 
 To run a set of simulations, make all required parameter selections (detailed within each script) and launch script. Expected runtime varies between scripts, but an individual simulation with 3500 agents should run in approximately 1 minute.
 
@@ -44,10 +46,6 @@ All software should install within a few minutes on a standard computer, the ver
 
 * Python Version 3.9.12 https://www.python.org/downloads/
 * Spyder Version 5.3.3 (IDE for R) https://www.spyder-ide.org/
-
-## Contact Information
-
-This project was developed by K.R. Fair and O.A. Guerrero, within the Alan Turing Institute's Public Policy Programme. Please direct all correspondence to K.R. Fair (kfair@turing.ac.uk).
 
 ## Acknowledgements
 
