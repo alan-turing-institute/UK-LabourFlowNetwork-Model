@@ -96,12 +96,12 @@ def gd_sim(i):
 
 ### Populate data dictionary for input into simulation function
 
-file = open(f'{home}data/20220520 KF PrePub 2001646/activation_dict.txt', "r")
+file = open(f'{home}data/activation_dict.txt', "r")
 contents = file.read()
 adict = ast.literal_eval(contents)
 file.close()
 
-file = open(f'{home}data/20220520 KF PrePub 2001646/income_dict_LFS_{regvar}_{sicvar}_{socvar}.txt', "r")
+file = open(f'{home}data/income_dict_LFS_{regvar}_{sicvar}_{socvar}.txt', "r")
 contents = file.read()
 idict = ast.literal_eval(contents)
 file.close()
@@ -142,9 +142,9 @@ avg_length_urates = avg_length # Breadth of window to average over when calculat
 t_ss=0 # Dummy value for the time for the initial flows to stabilise (leave set to 0)
 
 ### Read in empirical transition matrices. convert to numpy arrays
-reg_trans_mat = pd.read_csv(open(f'{home}data/20220520 KF PrePub 2001646/region_transitiondensity_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
-sic_trans_mat = pd.read_csv(open(f'{home}data/20220520 KF PrePub 2001646/sic_transitiondensities_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
-soc_trans_mat = pd.read_csv(open(f'{home}data/20220520 KF PrePub 2001646/soc_transitiondensities_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
+reg_trans_mat = pd.read_csv(open(f'{home}data/region_transitiondensity_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
+sic_trans_mat = pd.read_csv(open(f'{home}data/sic_transitiondensities_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
+soc_trans_mat = pd.read_csv(open(f'{home}data/soc_transitiondensities_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
 
 
 reg_trans_mat = reg_trans_mat.to_numpy()
@@ -183,7 +183,7 @@ num_soc = len(soc)
 pos_dist = pd.read_csv(open(f'{home}data/positiondist_reweighted_LFS_{regvar}_{sicvar}_{socvar}.csv'))
 
 ### Read in income data for generating wages
-inc_dist = pd.read_csv(open(f'{home}data/20220520 KF PrePub 2001646/incomedist_LFS_{regvar}_{sicvar}_{socvar}.csv'))
+inc_dist = pd.read_csv(open(f'{home}data/incomedist_LFS_{regvar}_{sicvar}_{socvar}.csv'))
 
 ### Read in age distribution
 age_dist = pd.read_csv(open(f'{home}data/age_dist_reweighted_LFS_{regvar}_{sicvar}_{socvar}.csv'), dtype="float64")['AGE']
@@ -388,7 +388,7 @@ for k in range(fitrun_num):
         g6.set_title("Occupation transition densities (simulated)")
 
         plt.tight_layout()
-        plt.savefig(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_run{k}_nus_finalmatrix_unconditional.png', bbox_inches="tight", dpi=500)
+        plt.savefig(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_run{k}_nus_finalmatrix_unconditional.png', bbox_inches="tight", dpi=500)
         plt.show()
 
         # Store calibrated parameters and associated information from simulations
@@ -455,7 +455,7 @@ for k in range(fitrun_num):
             plt.xlabel("Iteration")
             
             plt.tight_layout()
-            plt.savefig(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_run{k}_LFS_combinedmetrics.png', bbox_inches="tight", dpi=500)
+            plt.savefig(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_run{k}_LFS_combinedmetrics.png', bbox_inches="tight", dpi=500)
             plt.show() 
             
         
@@ -503,7 +503,7 @@ for k in range(fitrun_num):
             plt.xlabel("Iteration")
     
             plt.tight_layout()
-            plt.savefig(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_run{k}_LFS_pearsonfrob.png', bbox_inches="tight", dpi=500)
+            plt.savefig(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_run{k}_LFS_pearsonfrob.png', bbox_inches="tight", dpi=500)
             plt.show()    
         
         if count == 20: # NB: currently have a set break after 20 iterations of the fitting algorithm, based on current parametrisation of model, however can remove and run until while condition is met if starting fresh
@@ -568,16 +568,16 @@ for k in range(fitrun_num):
     print(f"Completion percentage: {100*((k+1)/fitrun_num)}")
 
 # Save calibration output
-pickle.dump(reg_nu_mat_store, open(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_reg_scost_mat_LFS.sav', 'wb'))
-pickle.dump(sic_nu_mat_store, open(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_sic_scost_mat_LFS.sav', 'wb'))
-pickle.dump(soc_nu_mat_store, open(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_soc_scost_mat_LFS.sav', 'wb'))
+pickle.dump(reg_nu_mat_store, open(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_reg_scost_mat_LFS.sav', 'wb'))
+pickle.dump(sic_nu_mat_store, open(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_sic_scost_mat_LFS.sav', 'wb'))
+pickle.dump(soc_nu_mat_store, open(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_soc_scost_mat_LFS.sav', 'wb'))
 
-pickle.dump(reg_frobenius_store, open(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_reg_frobenius_LFS.sav', 'wb'))
-pickle.dump(reg_pearson_store, open(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_reg_pearson_LFS.sav', 'wb'))
-pickle.dump(sic_frobenius_store, open(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_sic_frobenius_LFS.sav', 'wb'))
-pickle.dump(sic_pearson_store, open(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_sic_pearson_LFS.sav', 'wb'))
-pickle.dump(soc_frobenius_store, open(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_soc_frobenius_LFS.sav', 'wb'))
-pickle.dump(soc_pearson_store, open(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_soc_pearson_LFS.sav', 'wb'))
-pickle.dump(comb_frobenius_store, open(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_comb_frobenius_LFS.sav', 'wb'))
-pickle.dump(comb_pearson_store, open(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_comb_pearson_LFS.sav', 'wb'))
-pickle.dump(comb_abserr_metric_store, open(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_comb_abserr_metric_LFS.sav', 'wb'))
+pickle.dump(reg_frobenius_store, open(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_reg_frobenius_LFS.sav', 'wb'))
+pickle.dump(reg_pearson_store, open(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_reg_pearson_LFS.sav', 'wb'))
+pickle.dump(sic_frobenius_store, open(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_sic_frobenius_LFS.sav', 'wb'))
+pickle.dump(sic_pearson_store, open(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_sic_pearson_LFS.sav', 'wb'))
+pickle.dump(soc_frobenius_store, open(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_soc_frobenius_LFS.sav', 'wb'))
+pickle.dump(soc_pearson_store, open(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_soc_pearson_LFS.sav', 'wb'))
+pickle.dump(comb_frobenius_store, open(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_comb_frobenius_LFS.sav', 'wb'))
+pickle.dump(comb_pearson_store, open(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_comb_pearson_LFS.sav', 'wb'))
+pickle.dump(comb_abserr_metric_store, open(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_comb_abserr_metric_LFS.sav', 'wb'))
