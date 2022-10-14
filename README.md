@@ -1,4 +1,4 @@
-# UK Labour Flow Network (LFN) Model
+# UK Labour Flow Network (LFN) Model **UNDER CONSTRUCTION**
 
 Simulation and model-fitting code for manuscript by Fair & Guerrero (2022). Model emerges the LFN describing the patterns of labour mobility (i.e. job-to-job transitions) within the UK labour market. The associated preprint is posted at TKTKTK.
 
@@ -8,40 +8,17 @@ In order to run simulations, the user will need to generate input datasets from 
 
 ## Repository Structure
 
+```
 ├── LICENSE
 ├── README.md          <- The top-level README for users of this project.
-├── CODE_OF_CONDUCT.md <- Guidelines for users and contributors of the project.
-├── CONTRIBUTING.md    <- Information on how to contribute to the project.
-├── data
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
 │
-├── docs               <- A default Sphinx project; see sphinx-doc.org for details
+├── data               <- All data (that can be made publicly available in this repository) required to run the model
 │
-├── models             <- Trained and serialized models, model predictions, or model summaries
-│
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
-│
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
-│
-├── project_management <- Meeting notes and other project planning resources
-│
-├── src                <- Source code for use in this project.
-│   │
-│   ├── data           <- Scripts to download or generate data
-│   │   └── make_dataset.py
-│   │
-│   ├── models         <- Scripts to train models and then use trained models to make
-│   │   │                 predictions
-│   │   ├── predict_model.py
-│   │   └── train_model.py
-│   │
-│  └── visualisation  <- Scripts to create exploratory and results oriented visualisations
-│       └── visualise.py
+├── code               
+│   ├── preprocessing      <- Python scripts used to generate the files used as simulation inputs.
+│   └── simulation         <- Python scripts and notebooks used to run model simulations.
 └──
+```
 
 ## System & Hardware Requirements
 
