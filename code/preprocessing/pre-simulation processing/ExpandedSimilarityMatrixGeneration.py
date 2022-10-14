@@ -4,7 +4,7 @@
 Created on Tue Oct 26 09:18:18 2021
 
 Code to generate expanded (i.e. node-level) similarity matrices for use in UK labour market model 
-Requires as inputs the similarity matrices generated using "region_similarlity_LFS.py", "sic_similarlity_LFS.py", "soc_similarlity_LFS.py"
+Requires as inputs the similarity matrices generated using "region_similarlity.py", "sic_similarlity.py", "soc_similarlity.py"
 NB: Throughout we use the acronyms SIC for "Standard Industrial Classification", and SOC for "Standard Occupational Classification"
 
 @author: Kathyrn R Fair
