@@ -36,3 +36,7 @@ All software should install within a few minutes on a standard computer, the ver
 
 * Python Version 3.9.12 https://www.python.org/downloads/
 * Spyder Version 5.3.3 (IDE for R) https://www.spyder-ide.org/
+
+## Contact information
+
+This project was developed by K.R. Fair and O.A. Guerrero, within the Modeling for Policy theme of the Alan Turing Institute's Public Policy Programme. Please direct all correspondence to K.R. Fair (kfair@turing.ac.uk).
