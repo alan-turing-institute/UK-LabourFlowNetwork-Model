@@ -3,9 +3,9 @@
 """
 Created on Tue Dec 7 10:37:21 2021
 
-Code producing empirical job to job transition matrices based on LFS data
+Code producing job to job transition matrices from UK Labour Force Survey (LFS)
 
-@author: kfair
+@author: Kathyrn R Fair
 
 Based on script developed by Áron Pap
 """
@@ -22,11 +22,11 @@ home =  os.getcwd()
 # Create dataframe to use for mapping months to quarters
 monthmapper = pd.DataFrame(list(zip([1,2,3,4,5,6,7,8,9,10,11,12], ['Q1','Q1','Q1','Q2','Q2','Q2','Q3','Q3','Q3','Q4','Q4','Q4'])), columns=['CONMON', 'quarter_CONMON'])
 
-### Generate the longitudinal dataframe containing (sic, soc, region, wage) data
+### Generate the longitudinal dataframe containing industry (SIC), occupation (SOC), geographical region, and wage data
 
 # define desired region, sic, soc variables
 select_vars = ['GORWKR', 'Inds07m', 'SC10MMJ'] 
-#Indicate which variables (columns) we want to keep for creating LFN
+#Indicate which variables (columns) we want to keep for creating job to job transition matrices
 vois = ['PERSID','AGE1', 'AGE2', 'AGE3', 'AGE4', 'AGE5', 
         select_vars[0] + '1', select_vars[0] + '2', select_vars[0] + '3', select_vars[0] + '4', select_vars[0] + '5',
         select_vars[2] + '1', select_vars[2] + '2', select_vars[2] + '3', select_vars[2] + '4', select_vars[2] + '5', 
@@ -35,7 +35,7 @@ vois = ['PERSID','AGE1', 'AGE2', 'AGE3', 'AGE4', 'AGE5',
         'CONMPY1', 'CONMPY2', 'CONMPY3', 'CONMPY4', 'CONMPY5', 'CONSEY1', 'CONSEY2', 'CONSEY3', 'CONSEY4', 'CONSEY5', 
         'CONMON1', 'CONMON2', 'CONMON3', 'CONMON4', 'CONMON5', 'LGWT18']
 
-filelist = glob.glob(home+'\CSVs\LGWT*.csv') # Create a list of all LGWT files from LFS
+filelist = glob.glob(home+'\CSVs\LGWT*.csv') # Create a list of all longitudial weighted (LGWT) files from LFS
 
 for i in range(len(filelist)):
 
@@ -65,7 +65,6 @@ for i in range(len(filelist)):
     
     # Cycle through quarters
     for j in np.arange(1,5):
-        # filter_var = prefix[i-1] + 'INECAC05'
         
         # Get "from" dataframe
         filter_var_from = 'INCAC05' + f'{j}'
@@ -113,7 +112,7 @@ for i in range(len(filelist)):
         frames = [df_cmb_tot_all, df_cmb]
         df_cmb_tot_all = pd.concat(frames)
      
-#Drop all workers under age 18, as we assume youngest worker is 18, don't want info on jobs for workers under 18
+#Drop all workers under age 18, as we assume youngest worker is 18 in the model
 df_cmb_tot = df_cmb_tot_all.loc[(df_cmb_tot_all['AGE_from']>=18)].copy()
 
 # Finding job-to-job moves
@@ -140,29 +139,7 @@ df_reg_unweighted.sum(axis=1).to_csv(f'region_unweightedtransitionrowcounts_empi
 df_reg_unweighted.to_csv(f'region_unweightedtransitioncounts_empirical_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.csv')
 # Normalizing based on sum across rows (i.e. out degree from each region aka each row)
 print(f'The lowest out-degree for a region is: {min(df_reg_unweighted.sum(axis=1))}')
-df_reg_conddensity = df_reg.div(df_reg.sum(axis=1), axis=0)
 
-# Generate plot of transition matrix
-fig=plt.figure(figsize=(10,10))
-ax = fig.add_axes([0, 0, 1, 1])
-# sp=ax.imshow(df_region_prob, cmap='YlOrRd', norm=colors.LogNorm())
-sp=ax.imshow(df_reg_conddensity, cmap='YlOrRd')
-fig.colorbar(sp, ax=ax)
-ax.set_xticks(np.arange(len(df_reg_conddensity.index.tolist())))
-ax.set_xticklabels(df_reg_conddensity.index.tolist(), rotation = 90)
-ax.set_yticks(np.arange(len(df_reg_conddensity.index.tolist())))
-ax.set_yticklabels(df_reg_conddensity.index.tolist())
-ax.set_xlabel("Next region", fontsize=14)
-ax.set_ylabel("Previous region", fontsize=14)
-ax.set_title("Conditional transition densities for regions (movers only)", fontsize=16)
-
-#Generate fig with layout
-plt.grid(False)
-plt.savefig(f'regional_conditionaltransitiondensities_empirical_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.png', bbox_inches="tight")
-plt.show()
-
-# Store region matrix
-df_reg_conddensity.to_csv(f'region_conditionaltransitiondensities_empirical_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.csv')
 df_reg_density = df_reg.div(df_reg.sum().sum())
 
 # Generate plot of transition matrix
@@ -187,46 +164,23 @@ plt.show()
 df_reg_density.to_csv(f'region_transitiondensity_empirical_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.csv')
 
 ### SOC (occupation) transition matrix ###
-#Get rid of rows with missing data for soc (will have to check how these are coded)
+#Get rid of rows with missing data for soc
 df_jtj_soc = df_jtj.loc[(df_jtj[select_vars[2] + '_from'] > 0) & (df_jtj[select_vars[2] + '_to'] > 0)].copy()
-#Keep only the voi we're interested in (soc_1d)
+#Keep only the variables we're interested in
 df_m = df_jtj_soc[[select_vars[2] + '_from',select_vars[2] + '_to', 'LGWT18_from']]
-# Cross-tabulation to generate weighted adjacency - will need to see if there are issues with low counts
+# Cross-tabulation to generate weighted adjacency - check for issues with low counts
 df_soc_unweighted = pd.crosstab(index=df_m[select_vars[2] + '_from'], columns = df_m[select_vars[2] + '_to'])
 df_soc = pd.crosstab(index=df_m[select_vars[2] + '_from'], columns = df_m[select_vars[2] + '_to'], values=df_m['LGWT18_from'], aggfunc='sum')
 df_soc[np.isnan(df_soc)] = 0
 # Store SOC transition counts
 df_soc_unweighted.sum(axis=1).to_csv(f'soc_unweightedtransitionrowcounts_empirical_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.csv')
 df_soc_unweighted.to_csv(f'soc_unweightedtransitioncounts_empirical_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.csv')
-# Normalizing based on sum across rows (i.e. out degree from each 1-digit soc aka each row)
+# Normalizing based on sum across rows (i.e. out degree from each soc aka each row)
 print(f'The lowest out-degree for a soc is: {min(df_soc_unweighted.sum(axis=1))}')
-df_soc_conddensity = df_soc.div(df_soc.sum(axis=1), axis=0)
-
-# Generate plot of transition matrix #NB: would be good to switch to string labels for soc
-fig=plt.figure(figsize=(10,10))
-ax = fig.add_axes([0, 0, 1, 1])
-sp=ax.imshow(df_soc_conddensity, cmap='YlOrRd')
-fig.colorbar(sp, ax=ax)
-ax.set_xticks(np.arange(len(df_soc_conddensity.index.tolist())))
-ax.set_xticklabels(df_soc_conddensity.index.tolist(), rotation = 90)
-ax.set_yticks(np.arange(len(df_soc_conddensity.index.tolist())))
-ax.set_yticklabels(df_soc_conddensity.index.tolist())
-ax.set_xlabel("Next SOC", fontsize=14)
-ax.set_ylabel("Previous SOC", fontsize=14)
-ax.set_title("Conditional transition densities for SOC (movers only)", fontsize=16) #NB update this label to whatever level of granularity we end up with
-
-#Generate fig with layout
-plt.grid(False)
-plt.savefig(f'occupation_conditionaltransitiondensities_empirical_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.png', bbox_inches="tight")
-plt.show()
-
-
-# Store soc matrix
-df_soc_conddensity.to_csv(f'soc_conditionaltransitiondensities_empirical_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.csv')
 
 df_soc_density = df_soc.div(df_soc.sum().sum())
 
-# Generate plot of transition matrix #NB: would be good to switch to string labels for soc
+# Generate plot of transition matrix
 fig=plt.figure(figsize=(10,10))
 ax = fig.add_axes([0, 0, 1, 1])
 sp=ax.imshow(df_soc_density, cmap='YlOrRd')
@@ -237,7 +191,7 @@ ax.set_yticks(np.arange(len(df_soc_density.index.tolist())))
 ax.set_yticklabels(df_soc_density.index.tolist())
 ax.set_xlabel("Next SOC", fontsize=14)
 ax.set_ylabel("Previous SOC", fontsize=14)
-ax.set_title("Transition densities for SOC (movers only)", fontsize=16) #NB update this label to whatever level of granularity we end up with
+ax.set_title("Transition densities for SOC (movers only)", fontsize=16)
 
 #Generate fig with layout
 plt.grid(False)
@@ -252,39 +206,17 @@ df_soc_density.to_csv(f'soc_transitiondensities_empirical_LFS_{select_vars[0]}_{
 # #Get rid of rows with missing data for sic
 df_jtj_sic = df_jtj.loc[(df_jtj[select_vars[1] + '_from'] > 0) & (df_jtj[select_vars[1] + '_to'] > 0)].copy()
 
-#Keep only the voi we're interested in (single digit sic) NB: this will actually be whatever the most granular output we can get
+#Keep only the variables we're interested in
 df_m = df_jtj_sic[[select_vars[1] + '_from',select_vars[1] + '_to', 'LGWT18_from']]
-# Cross-tabulation to generate weighted adjacency - will need to see if there are issues with low counts
+# Cross-tabulation to generate weighted adjacency - check for issues with low counts
 df_sic_unweighted = pd.crosstab(index=df_m[select_vars[1] + '_from'], columns = df_m[select_vars[1] + '_to'])
 df_sic = pd.crosstab(index=df_m[select_vars[1] + '_from'], columns = df_m[select_vars[1] + '_to'], values=df_m['LGWT18_from'], aggfunc='sum')
 df_sic[np.isnan(df_sic)] = 0
 # Store SIC transition counts
 df_sic_unweighted.sum(axis=1).to_csv(f'sic_unweightedtransitionrowcounts_empirical_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.csv')
 df_sic_unweighted.to_csv(f'sic_unweightedtransitioncounts_empirical_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.csv')
-# Normalizing based on sum across rows (i.e. out degree from each 1-digit soc aka each row)
+# Normalizing based on sum across rows (i.e. out degree from each sic aka each row)
 print(f'The lowest out-degree for a sic is: {min(df_sic_unweighted.sum(axis=1))}')
-df_sic_conddensity = df_sic.div(df_sic.sum(axis=1), axis=0)
-
-# Generate plot of transition matrix
-fig=plt.figure(figsize=(6,6))
-ax = fig.add_axes([0, 0, 1, 1])
-sp=ax.imshow(df_sic_conddensity, cmap='YlOrRd')
-fig.colorbar(sp, ax=ax)
-ax.set_xticks(np.arange(len(df_sic_conddensity.index.tolist())))
-ax.set_xticklabels(df_sic_conddensity.index.tolist(), rotation = 90)
-ax.set_yticks(np.arange(len(df_sic_conddensity.index.tolist())))
-ax.set_yticklabels(df_sic_conddensity.index.tolist())
-ax.set_xlabel("Next SIC", fontsize=14)
-ax.set_ylabel("Previous SIC", fontsize=14)
-ax.set_title("Conditional transition densities for SIC (movers only)", fontsize=16) #NB update this label to whatever level of granularity we end up with
-
-#Generate fig with layout
-plt.grid(False)
-plt.savefig(f'industry_conditionaltransitiondensities_empirical_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.png', bbox_inches="tight")
-plt.show()
-
-# Store sic matrix
-df_sic_conddensity.to_csv(f'sic_conditionaltransitiondensities_empirical_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.csv') 
 
 df_sic_density = df_sic.div(df_sic.sum().sum())
 
@@ -299,7 +231,7 @@ ax.set_yticks(np.arange(len(df_sic_density.index.tolist())))
 ax.set_yticklabels(df_sic_density.index.tolist())
 ax.set_xlabel("Next SIC", fontsize=14)
 ax.set_ylabel("Previous SIC", fontsize=14)
-ax.set_title("Transition densities for SIC (movers only)", fontsize=16) #NB update this label to whatever level of granularity we end up with
+ax.set_title("Transition densities for SIC (movers only)", fontsize=16) 
 
 #Generate fig with layout
 plt.grid(False)
@@ -309,3 +241,4 @@ plt.show()
 # Store sic matrix
 df_sic_density.to_csv(f'sic_transitiondensities_empirical_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.csv') 
 
+# NB: in all cases the output matrix should sum to 1, and we should have an n x n matrix where n is the number of categories for the variable
