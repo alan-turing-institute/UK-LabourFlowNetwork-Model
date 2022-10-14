@@ -4,7 +4,7 @@ Simulation and model-fitting code for manuscript by Fair & Guerrero (2022). Mode
 
 To run a set of simulations, make all required parameter selections (detailed within each script) and launch script. Expected runtime varies between scripts, but an individual simulation with 3500 agents should run in approximately 1 minute.
 
-In order to run simulations, the user will need to generate input datasets from the UK Labour Force Survey (LFS) longitudinal dataset, as well as the O-NET database as these data cannot be posted publicly in this repository.
+**NOTE:** In order to run simulations, the user will need to generate input datasets from the UK Labour Force Survey (LFS) longitudinal dataset, as well as the O-NET database as these data cannot be posted publicly in this repository.
 
 ## Repository Structure
 
