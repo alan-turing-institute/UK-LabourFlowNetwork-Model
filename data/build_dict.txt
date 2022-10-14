@@ -1,7 +1,6 @@
 # Update input dictionary
 input_data_dict = {}
 # Add parameters to input dictionary
-# input_data_dict['T'] = T
 input_data_dict['N'] = N
 input_data_dict['P'] = P
 input_data_dict['PD'] = PD
@@ -15,9 +14,6 @@ input_data_dict['sample_size'] = sample_size
 input_data_dict['node_dict'] = node_dict
 input_data_dict['n'] = n
 input_data_dict['gamma'] = gamma
-#input_data_dict['nu_r'] = nu_r
-#input_data_dict['nu_i'] = nu_i
-#input_data_dict['nu_o'] = nu_o
 input_data_dict['node_reg_sim_mat'] = node_reg_sim_mat
 input_data_dict['node_sic_sim_mat'] = node_sic_sim_mat
 input_data_dict['node_soc_sim_mat'] = node_soc_sim_mat

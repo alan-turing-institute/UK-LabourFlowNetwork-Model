@@ -201,7 +201,7 @@ cpr_dist = pd.read_csv(open(f'{home}data/consumptionpref_dist_reweighted_LFS_{re
 # cpr_dist = cpr_dist[cpr_dist>0]
 
 ### Populate data dictionary for input into simulation function
-with open('%sdata/build_dict_LFS_v1.txt' % home, 'r') as file:
+with open('%sdata/build_dict.txt' % home, 'r') as file:
     data = file.read()    
 exec(data)
 

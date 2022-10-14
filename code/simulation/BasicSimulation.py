@@ -134,7 +134,7 @@ cpr_dist = pd.read_csv(open(f'{home}data/consumptionpref_dist_reweighted_LFS_{re
 # cpr_dist = cpr_dist[cpr_dist>0]
 
 ### Populate data dictionary for input into simulation function
-with open('%sdata/build_dict_LFS_v1.txt' % home, 'r') as file:
+with open('%sdata/build_dict.txt' % home, 'r') as file:
     data = file.read()    
 exec(data)
 
@@ -142,7 +142,7 @@ exec(data)
 input_data_dict_temp = copy.deepcopy(input_data_dict)
 
 ### Import simulation functions
-import ABMrun_LFS_cleaned as sim
+import ABMrun as sim
 
 steady_state_length = 250 # Number of rounds to estimate transition matrices in the steady state of the model
 fitrun_num = 10 # Run of calibration algorithm - leave as is

@@ -192,7 +192,7 @@ age_dist = pd.read_csv(open(f'{home}data/age_dist_reweighted_LFS_{regvar}_{sicva
 cpr_dist = pd.read_csv(open(f'{home}data/consumptionpref_dist_reweighted_LFS_{regvar}_{sicvar}_{socvar}.csv'))['consumption_pref']
 
 ### Populate data dictionary for input into simulation function
-with open('%sdata/build_dict_LFS_v1.txt' % home, 'r') as file:
+with open('%sdata/build_dict.txt' % home, 'r') as file:
     data = file.read()    
 exec(data)
 
@@ -200,7 +200,7 @@ exec(data)
 input_data_dict_temp = copy.deepcopy(input_data_dict)
 
 ### Import simulation functions
-import ABMrun_LFS_cleaned as sim
+import ABMrun as sim
 
 # Set gradient descent calibration parameters
 fitrun_num = 1 # Number of times to run calibration algorithm
