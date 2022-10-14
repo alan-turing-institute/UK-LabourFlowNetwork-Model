@@ -49,4 +49,4 @@ All software should install within a few minutes on a standard computer, the ver
 
 ## Acknowledgements
 
-We thank Andy Jones and his team at BEIS, as well as Áron Pap and Dr. Alden Conner for their contributions to the development of this model and associated repository.
+We thank Andy Jones and his team at BEIS, Áron Pap, and Dr. Alden Conner for their contributions to the development of this model and associated repository.
