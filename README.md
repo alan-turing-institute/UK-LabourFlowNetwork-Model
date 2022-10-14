@@ -24,6 +24,14 @@ In order to run simulations, the user will need to generate input datasets from 
 └──
 ```
 
+## Tutorial Notebooks
+
+We provide several annotated Jupyter notebooks in the code/simulation folder with examples of different uses of the model.
+
+1. **BasicSimulation.ipynb** performs a single simulation of the model and presents a visualisation of the LFNs generated, along with associated statistics comparing the simulated and observed LFNs.
+2. **Calibration.ipynb** demonstrates the algorithm used to calibrate the model's free parameters, and includes visualisations of calibration process.
+3. **ShockSimulation.ipynb** performs a suite of Monte Carlo simulations of the model, incorporating a shock.
+
 ## System & Hardware Requirements
 
 * macOS Monterey version 12.6 (or similar)
