@@ -4,19 +4,23 @@ Simulation and model-fitting code for manuscript by Fair & Guerrero (2022). Mode
 
 To run a set of simulations, make all required parameter selections (detailed within each script) and launch script. Expected runtime varies between scripts, but an individual simulation should run within 1 minute.
 
-In order to run simulations, the user will need to generate input datasets from the UK Labour Force Survey longitudinal dataset, as well as the O-NET database as these data cannot be posted publicly in this repository.
+In order to run simulations, the user will need to generate input datasets from the UK Labour Force Survey (LFS) longitudinal dataset, as well as the O-NET database as these data cannot be posted publicly in this repository.
 
 ## Repository Structure
 
 ```
 ├── LICENSE
-├── README.md          <- The top-level README for users of this project.
+├── README.md                           <- The top-level README for users of this project.
 │
-├── data               <- All data (that can be made publicly available in this repository) required to run the model
+├── data                                <- All data (that can be made publicly available in this repository) required to run the model.
 │
 ├── code               
-│   ├── preprocessing      <- Python scripts used to generate the files used as simulation inputs.
-│   └── simulation         <- Python scripts and notebooks used to run model simulations.
+│   ├── preprocessing    
+│   │   ├── LFS data collection         <- Python scripts used to collect data from LFS dataset.
+│   │   ├── non-LFS data collection     <- Python scripts used to collect data from other sources.
+│   │   └── pre-simulation processing   <- Python scripts used to further process data collected from LFS.
+│   │
+│   └── simulation                      <- Python scripts and notebooks used to run model simulations.
 └──
 ```
 
