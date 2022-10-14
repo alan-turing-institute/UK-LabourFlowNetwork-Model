@@ -2,7 +2,7 @@
 
 Simulation and model-fitting code for manuscript by Fair & Guerrero (2022). Model emerges the LFN describing the patterns of labour mobility (i.e. job-to-job transitions) within the UK labour market. The associated preprint is posted at TKTKTK.
 
-To run a set of simulations, make all required parameter selections (detailed within each script) and launch script. Expected runtime varies between scripts, but an individual simulation should run within 1 minute.
+To run a set of simulations, make all required parameter selections (detailed within each script) and launch script. Expected runtime varies between scripts, but an individual simulation with 3500 agents should run in approximately 1 minute.
 
 In order to run simulations, the user will need to generate input datasets from the UK Labour Force Survey (LFS) longitudinal dataset, as well as the O-NET database as these data cannot be posted publicly in this repository.
 
