@@ -12,7 +12,7 @@ In order to run simulations, the user will need to generate input datasets from 
 ├── LICENSE
 ├── README.md                           <- README for project users.
 │
-├── data                                <- All data (that can be made publicly available in this repository) required to run the model.
+├── data                                <- All publicly available data required to run the model.
 │
 ├── code               
 │   ├── preprocessing    
