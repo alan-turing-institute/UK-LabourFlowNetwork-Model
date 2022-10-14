@@ -47,6 +47,6 @@ All software should install within a few minutes on a standard computer, the ver
 * Python Version 3.9.12 https://www.python.org/downloads/
 * Spyder Version 5.3.3 (IDE for R) https://www.spyder-ide.org/
 
-## Acknowledgements
+<!--## Acknowledgements
 
-We thank Andy Jones and his team at BEIS, Áron Pap, and Dr. Alden Conner for their contributions to the development of this model and associated repository.
+We thank Andy Jones and his team at BEIS, Áron Pap, and Dr. Alden Conner for their contributions to the development of this model and associated repository.-->
