@@ -89,7 +89,7 @@ ax.set_ylabel("SIC section from", fontsize=14)
 ax.set_title("SIC similarties (aggregated to section-level)", fontsize=16)
 
 # Load empirical SIC transition probability matrix
-tmat = pd.read_csv(open(f'{home}data/20220520 KF PrePub 2001646/sic_transitiondensities_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
+tmat = pd.read_csv(open(f'{home}data/sic_transitiondensities_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
 
 #Compare empirical transition density matrix with similarity matrix scaled to have the same maximum value as that contained in the transition matrix
 print(np.corrcoef(np.asarray(tmat).flatten(),np.asarray(tmat.max().max()*df_agg).flatten()))
