@@ -109,7 +109,7 @@ ax.set_title("SOC similarties (simplfied to SOC major groups - 1 digits)", fonts
 plt.show()
 
 # Load empirical SOC transition probability matrix
-tmat = pd.read_csv(open(f'{home}data/20220520 KF PrePub 2001646/soc_transitiondensities_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
+tmat = pd.read_csv(open(f'{home}data/soc_transitiondensities_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
 
 #Compare empirical transition density matrix with similarity matrix scaled to have the same maximum value as that contained in the transition matrix
 #Pearson correlation
