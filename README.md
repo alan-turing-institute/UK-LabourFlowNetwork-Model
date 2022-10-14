@@ -18,7 +18,7 @@ In order to run simulations, the user will need to generate input datasets from 
 │   ├── preprocessing    
 │   │   ├── LFS data collection         <- Python scripts used to collect data from LFS dataset.
 │   │   ├── non-LFS data collection     <- Python scripts used to collect data from other sources.
-│   │   └── pre-simulation processing   <- Python scripts used to further process data collected from LFS, in order to input into simulations.
+│   │   └── pre-simulation processing   <- Python scripts used to process data collected from LFS for input into simulations.
 │   │
 │   └── simulation                      <- Python scripts and notebooks used to run model simulations.
 └──
