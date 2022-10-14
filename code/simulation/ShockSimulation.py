@@ -47,7 +47,7 @@ def parallel_sim_singleshock(i):
     # Run a simulation
     model_output = sim.shock_run_simulation(shock_type, impacted_industries, input_data_dict_temp)
     
-    pickle.dump(model_output, open(f'{home}data/shock_results/model_output_shock{shock_type}_singleshock{impacted_industries}_set{k}_rep{i}.sav', 'wb'))
+    pickle.dump(model_output, open(f'{home}data/model_output_shock{shock_type}_singleshock{impacted_industries}_set{k}_rep{i}.sav', 'wb'))
     
     # Unpack simulation output
     wor_ids,wor_jobs,wor_job_node_ids,wor_ages,wor_consumption_prefs, \
@@ -80,7 +80,7 @@ def parallel_sim_mc(i):
     # Run a simulation
     model_output = sim.shock_run_simulation(shock_type, impacted_industries, input_data_dict_temp)
 
-    pickle.dump(model_output, open(f'{home}data/shock_results/model_output_shock{shock_type}_shock{n_shocked}_set{k}_rep{i}.sav', 'wb'))
+    pickle.dump(model_output, open(f'{home}data/model_output_shock{shock_type}_shock{n_shocked}_set{k}_rep{i}.sav', 'wb'))
     
     # Unpack simulation output
     wor_ids,wor_jobs,wor_job_node_ids,wor_ages,wor_consumption_prefs, \
@@ -103,12 +103,12 @@ def parallel_sim_mc(i):
 
 ### Populate data dictionary for input into simulation function
 
-file = open(f'{home}data/20220520 KF PrePub 2001646/activation_dict.txt', "r")
+file = open(f'{home}data/activation_dict.txt', "r")
 contents = file.read()
 adict = ast.literal_eval(contents)
 file.close()
 
-file = open(f'{home}data/20220520 KF PrePub 2001646/income_dict_LFS_{regvar}_{sicvar}_{socvar}.txt', "r")
+file = open(f'{home}data/income_dict_LFS_{regvar}_{sicvar}_{socvar}.txt', "r")
 contents = file.read()
 idict = ast.literal_eval(contents)
 file.close()
@@ -149,9 +149,9 @@ avg_length_urates = avg_length # Breadth of window to average over when calculat
 t_ss=0 # Dummy value for the time for the initial flows to stabilise (leave set to 0)
 
 ### Read in empirical transition matrices. convert to numpy arrays
-reg_trans_mat = pd.read_csv(open(f'{home}data/20220520 KF PrePub 2001646/region_transitiondensity_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
-sic_trans_mat = pd.read_csv(open(f'{home}data/20220520 KF PrePub 2001646/sic_transitiondensities_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
-soc_trans_mat = pd.read_csv(open(f'{home}data/20220520 KF PrePub 2001646/soc_transitiondensities_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
+reg_trans_mat = pd.read_csv(open(f'{home}data/region_transitiondensity_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
+sic_trans_mat = pd.read_csv(open(f'{home}data/sic_transitiondensities_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
+soc_trans_mat = pd.read_csv(open(f'{home}data/soc_transitiondensities_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv', 'rb'), header=0,index_col=0)
 
 reg_trans_mat = reg_trans_mat.to_numpy()
 sic_trans_mat = sic_trans_mat.to_numpy()
@@ -190,7 +190,7 @@ pos_dist = pd.read_csv(open(f'{home}data/positiondist_reweighted_LFS_{regvar}_{s
 # pos_dist = pos_dist[pos_dist.reg_id!=22].copy()
 
 ### Read in income data for generating wages
-inc_dist = pd.read_csv(open(f'{home}data/20220520 KF PrePub 2001646/incomedist_LFS_{regvar}_{sicvar}_{socvar}.csv'))
+inc_dist = pd.read_csv(open(f'{home}data/incomedist_LFS_{regvar}_{sicvar}_{socvar}.csv'))
 # inc_dist = inc_dist[inc_dist.reg_id!=22].copy()
 
 ### Read in age distribution
@@ -216,9 +216,9 @@ fitrun_num = 10 # Number of times to run calibration algorithm
 sim_num = 15 #number of simulations to run in parallel
 
 # Generate nu-modified similarity matrices
-reg_nu_mat = np.mean(pickle.load(open(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_reg_scost_mat_LFS.sav', 'rb')), axis=2)
-sic_nu_mat = np.mean(pickle.load(open(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_sic_scost_mat_LFS.sav', 'rb')), axis=2)
-soc_nu_mat = np.mean(pickle.load(open(f'{home}data/calibration/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_soc_scost_mat_LFS.sav', 'rb')), axis=2)
+reg_nu_mat = np.mean(pickle.load(open(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_reg_scost_mat_LFS.sav', 'rb')), axis=2)
+sic_nu_mat = np.mean(pickle.load(open(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_sic_scost_mat_LFS.sav', 'rb')), axis=2)
+soc_nu_mat = np.mean(pickle.load(open(f'{home}data/graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_soc_scost_mat_LFS.sav', 'rb')), axis=2)
 
 node_reg_sim_mat_input = np.zeros(node_reg_sim_mat.shape)
 node_sic_sim_mat_input = np.zeros(node_sic_sim_mat.shape)
