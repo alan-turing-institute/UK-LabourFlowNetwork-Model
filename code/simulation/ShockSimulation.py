@@ -209,7 +209,7 @@ exec(data)
 input_data_dict_temp = copy.deepcopy(input_data_dict)
 
 ### Import simulation functions
-import ABMrun_LFS_cleaned as sim
+import ABMrun as sim
 
 # Set gradient descent calibration parameters (leave as-is)
 fitrun_num = 10 # Number of times to run calibration algorithm
