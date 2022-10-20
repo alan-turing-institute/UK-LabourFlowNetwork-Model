@@ -3,7 +3,9 @@
 """
 Created on Tue Dec  7 12:42:19 2021
 
-@author: kfair
+Code compiling datasets describing the UK job distribution from UK Labour Force Survey (LFS)
+
+@author: Kathyrn R Fair
 
 Based on script developed by Áron Pap
 """
@@ -20,7 +22,7 @@ from statsmodels.stats.weightstats import DescrStatsW
 # Set working directory
 home =  os.getcwd()
 
-### Generate the longitudinal dataframe containing (sic, soc, region, wage) data
+### Generate the longitudinal dataframe containing industry (SIC), occupation (SOC), geographical region, and wage data
 
 # define desired region, sic, soc variables
 select_vars = ['GORWKR', 'Inds07m', 'SC10MMJ']
@@ -31,7 +33,7 @@ vois = ['PERSID', 'AGE1', 'AGE2', 'AGE3', 'AGE4', 'AGE5',
         select_vars[1] + '1', select_vars[1] + '2', select_vars[1] + '3', select_vars[1] + '4', select_vars[1] + '5',
         'INCAC051','INCAC052','INCAC053','INCAC054','INCAC055', 'NETWK1' , 'NETWK2' , 'NETWK3' , 'NETWK4' , 'NETWK5', 'LGWT18']
 
-filelist = glob.glob(home+'\CSVs\LGWT*.csv')  # Create a list of all LGWT files from LFS
+filelist = glob.glob(home+'\CSVs\LGWT*.csv')  # Create a list of all longitudial weighted (LGWT) files from LFS
 
 for i in range(len(filelist)):
 
@@ -91,7 +93,7 @@ for i in range(len(filelist)):
         frames = [df_cmb_tot, df_cmb]
         df_cmb_tot = pd.concat(frames)
         
-#Drop all workers under age 18, as we assume youngest worker is 18, don't want info on jobs for workers under 18
+#Drop all workers under age 18, as we assume youngest worker is 18 in the model
 df_cmb_tot = df_cmb_tot.loc[df_cmb_tot['AGE']>=18].copy()
 
 # Exclude all rows without a complete (region, sic, soc) tuple
@@ -103,11 +105,8 @@ df_fin = dft[[select_vars[0], select_vars[1], select_vars[2],'NETWK', 'LGWT18', 
 df_fin.loc[(df_fin['NETWK']<=0), 'NETWK'] = float("nan")
 df_fin.loc[:,'NETWK'] = df_fin['NETWK'].astype(float).values.copy()
 
-### Display descriptive statistics for data frame
-df_fin.describe()
-
 #  Adjust wages for inflation
-#  Read in UK CPIH data (from https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l522/mm23)
+#  Read in UK CPIH (Consumer Prices Index including owner occupiers' housing costs) data (from https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l522/mm23)
 cpih = pd.read_csv('uk_cpih_quarterly.csv',sep=",")
 # Merge on year to get (year, quarter)-specific CPIH values
 df_fin = df_fin.merge(cpih, left_on=['year', 'quarter'], right_on=['year', 'quarter'],how = 'inner')
@@ -128,7 +127,7 @@ reg_int.to_csv(f'reg_int_key_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[
 sic_int.to_csv(f'sic_int_key_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.csv')
 soc_int.to_csv(f'soc_int_key_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.csv')
 
-#Merge in sic and region integer IDs for use in ABM
+#Merge in sic and region integer IDs for use in model
 df_fin = df_fin.merge(reg_int, left_on=select_vars[0], right_on=select_vars[0],how = 'inner')
 df_fin = df_fin.merge(sic_int, left_on=select_vars[1], right_on=select_vars[1],how = 'inner')
 df_fin = df_fin.merge(soc_int, left_on=select_vars[2], right_on=select_vars[2],how = 'inner')
@@ -136,7 +135,7 @@ df_fin = df_fin.merge(soc_int, left_on=select_vars[2], right_on=select_vars[2],h
 # Count number of soc and sic categories
 num_soc = len(df_fin[select_vars[2]].unique())
 num_sic = len(df_fin[select_vars[1]].unique()) #len(sic_int)
-# Create node IDs based on (region, sic, soc) that will match up with the indices in the similarity matrix used in the ABM
+# Create node IDs based on (region, sic, soc) that will match up with the indices in the similarity matrix used in the model
 df_fin['pos_node_ids'] = (df_fin['reg_id']-1)*(num_sic)*(num_soc) + (df_fin['sic_id']-1)*(num_soc) + (df_fin['soc_id'] - 1)
 
 # Generate a copy of the dataframe to use for later income calculations
@@ -156,9 +155,9 @@ print(len(df_out)/len(df_fin))
 # Shuffle order of data frame and reset index to prevent matching of this array with other LFS-derived arrays
 df_out = df_out.sample(frac=1).reset_index(drop=True).copy()
 
-# Store simplfied (region, sic division, 1-digit soc) distribution
-df_out[['reg_id', 'sic_id','soc_id','pos_node_ids', 'counts', 'LGWT18']].to_csv(f'positiondist_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.csv')
-                                                            
+# Store simplfied (region, sic division, 1-digit soc) distribution, this will be used to generate a weighted version of the job distribution for use in the model
+df_out[['reg_id', 'sic_id','soc_id','pos_node_ids', 'counts', 'LGWT18']].to_csv(f'positiondist_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.csv')          
+                                             
 ### Get summary info for income 
 # Calculate global mean, standard deviation, min, and max values (min/max rounded to nearest 1,000,000) for income
 weighted_stats = DescrStatsW(df_inc.annincome_adj[df_inc.annincome_adj>=0], weights=df_inc.LGWT18[df_inc.annincome_adj>=0], ddof=0)
@@ -255,5 +254,5 @@ plt.show()
 # Set the pos_node_id as the dataframe index
 df_sum.set_index('pos_node_ids', inplace=True)
 
-# Store simplfied (reg,sic,soc) grouped wage distribution data
+# Store simplfied (reg,sic,soc) grouped wage distribution data, this will be used to generate wages within the model
 df_sum[['reg_id', 'sic_id','soc_id', 'mean_annincome', 'std_annincome', 'ks_stat', 'ks_pval' , 'counts']].to_csv(f'incomedist_LFS_{select_vars[0]}_{select_vars[1]}_{select_vars[2]}.csv')

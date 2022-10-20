@@ -3,7 +3,9 @@
 """
 Created on Wed Dec  8 11:04:28 2021
 
-@author: kfair
+Code producing estimates of relative rates of activation for employed and unemployed individuals from UK Labour Force Survey (LFS)
+
+@author: Kathyrn R Fair
 
 Based on script developed by Áron Pap
 """
@@ -22,7 +24,7 @@ home =  os.getcwd()
 #Indicate which variables (columns) we want to keep - Refer to LFS documentaiton for variable definitions
 vois = ['PERSID', 'AGE1', 'AGE2', 'AGE3', 'AGE4', 'AGE5', 'DIFJOB1','DIFJOB2','DIFJOB3','DIFJOB4','DIFJOB5', 'ADDJOB1', 'ADDJOB2', 'ADDJOB3', 'ADDJOB4', 'ADDJOB5', 'LOOK41', 'LOOK42', 'LOOK43', 'LOOK44', 'LOOK45', 'ILODEFR1', 'ILODEFR2', 'ILODEFR3', 'ILODEFR4', 'ILODEFR5', 'LGWT18']
 
-filelist = glob.glob(home+'\CSVs\LGWT*.csv') # Create a list of all LGWT files from LFS
+filelist = glob.glob(home+'\CSVs\LGWT*.csv') # Create a list of all longitudial weighted (LGWT) files from LFS
 
 for i in range(len(filelist)):
 
@@ -77,11 +79,8 @@ for i in range(len(filelist)):
         frames = [df_cmb_tot, df_cmb]
         df_cmb_tot = pd.concat(frames)
 
-#Drop all workers under age 18, as we assume youngest worker is 18
+#Drop all workers under age 18, as we assume youngest worker is 18 in the model
 df_cmb_tot = df_cmb_tot.loc[df_cmb_tot['AGE']>=18].copy()
-
-# Display descriptive statistics for data frame
-print(df_cmb_tot.describe())
 
 ### Generate counts 
 # NB: 1=yes, 2=no, except for ADDJOB where 1=new (replacement) job, 2=additional job, ILODEFR where 1=in employment, 2= ILO unemployed, 3=inactive, 4=under16
@@ -106,3 +105,5 @@ activation_dict = {'activation_dict': {'employed_active': employed_active, 'empl
 
 with open('activation_dict.txt', 'w') as f:
     print(activation_dict, file=f)
+    
+# NB: The above should produce a text file containing (weighted) counts of (un)employed individuals actively seeking work, the active count (e.g. employed_active) should not exceed the total count (e.g. employed)

@@ -3,7 +3,9 @@
 """
 Created on Tue Dec  7 15:59:56 2021
 
-@author: kfair
+Code compiling datasets describing attributes of individuals within the UK labour force from UK Labour Force Survey (LFS)
+
+@author: Kathyrn R Fair
 
 Based on script developed by Áron Pap
 """
@@ -23,7 +25,7 @@ home =  os.getcwd()
 #Indicate which variables (columns) we want to keep
 vois = ['PERSID', 'INCAC051','INCAC052','INCAC053','INCAC054','INCAC055', 'AGE1', 'AGE2', 'AGE3', 'AGE4', 'AGE5', 'BUSHR1', 'BUSHR2', 'BUSHR3', 'BUSHR4', 'BUSHR5', 'LGWT18']
 
-filelist = glob.glob(home+'\CSVs\LGWT*.csv')  # Create a list of all LGWT files from LFS
+filelist = glob.glob(home+'\CSVs\LGWT*.csv')  # Create a list of all longitudial weighted (LGWT) files from LFS
 
 for i in range(len(filelist)):
 
@@ -85,7 +87,7 @@ for i in range(len(filelist)):
 
 # Create data frame containing age data        
 
-#Drop all workers under age 18, as we assume youngest worker is 18 
+#Drop all workers under age 18, as we assume youngest worker is 18 in the model
 dft_age = df_cmb_tot.loc[df_cmb_tot['AGE']>=18].copy()
 
 # Check counts for ages
@@ -96,19 +98,15 @@ dft_agefin = dft_age.loc[dft_age['count'] >= 10, ].copy()
 print('Removing <10 counts leaves us with this fraction of total observations for age:')
 print(len(dft_agefin)/len(dft_age))
 
-# Display descriptive statistics for data frame
-print(dft_agefin.describe())
-
 # Shuffle order of data frame and reset index to prevent matching of this array with the consumption preference array
 dft_agefin = dft_agefin.sample(frac=1).reset_index(drop=True).copy()
 
-# Store age distribution
+# Store age distribution, this will be used to create a weighted data set to assign agent ages in the model
 dft_agefin[['AGE', 'count', 'LGWT18']].to_csv('age_dist_LFS.csv')
 
 # Create data frame containing consumption preference data
-
 dft = df_cmb_tot.loc[~df_cmb_tot.BUSHR.isin([-8,-9])].copy()
-#Drop all workers under age 18, as we assume youngest worker is 18, don't want hours for under 18s
+#Drop all workers under age 18, as we assume youngest worker is 18 in the model
 dft = dft.loc[dft['AGE']>=18].copy()
 
 # Check counts for weekly hours
@@ -129,7 +127,7 @@ print(dft_fin.describe())
 # Shuffle order of data frame and reset index to prevent matching of this array with the age array
 dft_fin = dft_fin.sample(frac=1).reset_index(drop=True).copy()
 
-# Store consumption preference distribution
+# Store consumption preference distribution, this will be used to create a weighted data set to assign agent consumption preferences in the model
 dft_fin[['consumption_pref', 'count', 'LGWT18']].to_csv('consumptionpref_dist_LFS.csv')
 
 ### Visualise data
