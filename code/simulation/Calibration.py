@@ -114,7 +114,7 @@ num_jobs = 36000000
 vacancy_rate = num_vac/num_jobs
 P = int(N*(1+vacancy_rate)) # number of positions in the model
 granularity = 1 # Granularity for timestep (1 = yearly, 12 = monthly, 52 = weekly, etc.)
-job_destruction_rate = 0.0463 # ratio of positions randomly destroyed in 1 iteration (Value from Aron's calibration)
+job_destruction_rate = 0.0463 # ratio of positions randomly destroyed in 1 iteration
 job_creation_rate = job_destruction_rate # ratio of positions randomly created in 1 iteration
 PD = int(job_destruction_rate*P) # Get the number of positions to be destroyed
 PC = int(job_creation_rate*P) # Get the number of positions to be created
@@ -124,7 +124,7 @@ new_worker_init_age = 18 # Intial age of newly created workers
 survival_dat = pd.read_excel(f'{home}data/nationallifetable_20172019_wmeans.xlsx')
 # Convert to numpy array for computational efficiency
 worker_survival_rates = np.asarray(survival_dat.mean_survival)
-activation_rate_unemployed = adict['activation_dict']['unemployed_active_weight']/adict['activation_dict']['unemployed_weight'] #0.7923 #Rate at which unemployed workers are activated to perform a job search (set based roughly on 1 - mean economic inactivity rate for 2019, taken from https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/employmentintheuk/april2021)
+activation_rate_unemployed = adict['activation_dict']['unemployed_active_weight']/adict['activation_dict']['unemployed_weight'] #Rate at which unemployed workers are activated to perform a job search (set based roughly on 1 - mean economic inactivity rate for 2019, taken from https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/employmentintheuk/april2021)
 activation_rate_employed = adict['activation_dict']['employed_active_weight']/adict['activation_dict']['employed_weight'] #Ratio controlling the relative frequency with which employed workers are actively searching (as compared to the unemployed) 
 sample_size = 1 # Number of candidate positions each active worker will sample within a timestep
 gamma = 0.9662 # discount factor for utility calculations
