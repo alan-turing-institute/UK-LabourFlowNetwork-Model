@@ -82,7 +82,7 @@ def init_positions(P,pos_dist,inc_dist, wage_min, wage_max,num_sic,num_soc):
     
         Inputs:
             P = # of positions in model (integer)
-            pos_dist = array containing observed (region, SIC, SOC, wage) tuples to sample
+            pos_dist = array containing observed (region, SIC, SOC) tuples to sample
             inc_dist = array containing summary statistics for observed wage data, grouped by (region, SIC, SOC)
             wage_min = minimum possible annual wage
             wage_max = maximum possible annual wage
@@ -225,7 +225,7 @@ def position_sampling(XI_samp,vac_ids,active_wor_ids,active_wor_node_ids,
 def switch_calc(gamma,granularity,employmentstatus,ages,wages,nonlabour_incomes,
                 consumption_prefs,cand_wages,switch_costs):
     
-    """Calculate current/prospective utilities + switching costs and check inequality to decide whether to apply to job
+    """Calculate current/prospective expected utilities + switching costs and check inequality to decide whether to apply to job
     
         Inputs:
             gamma = discounting factor
@@ -240,7 +240,7 @@ def switch_calc(gamma,granularity,employmentstatus,ages,wages,nonlabour_incomes,
             
             
         Outputs:
-            incentive_comp = 1D array containing TRUE/FALSE values for whether the inequality governing whether a worker applies to the position they've been matched with (based on the utility calculation)
+            incentive_comp = 1D array containing TRUE/FALSE values for whether the inequality governing whether a worker applies to the position they've been matched with (based on the expected utility calculation)
     """
 
     # Initialize vector of utilities for current positions
@@ -249,32 +249,32 @@ def switch_calc(gamma,granularity,employmentstatus,ages,wages,nonlabour_incomes,
     # Get Boolean vector for currently employed agents
     cond = employmentstatus == 1
     
-    # Current utility if worker is employed
+    # Current expected utility if worker is employed
     part0 = (gamma**(ages[cond]))/(1-gamma)
     part1 = (wages[cond] + nonlabour_incomes[cond])
     part2 = consumption_prefs[cond]**consumption_prefs[cond]
     part3 = ((1-consumption_prefs[cond])/(wages[cond]))**(1-consumption_prefs[cond])
-    # Update current utilities for employed workers
+    # Update current expected utilities for employed workers
     curr_utilities[cond] = part0*part1*part2*part3
     
-    # Current utility if worker is unemployed
+    # Current expected utility if worker is unemployed
     # NB: =0 right now because we assume non-labour income = 0 and don't consider government transfers
     curr_unemployed_utility = ((gamma**(ages[~cond]))/(1-gamma))*\
         ((nonlabour_incomes[~cond])**consumption_prefs[~cond])
     
-    # Update current utilities for unemployed workers
+    # Update current expected utilities for unemployed workers
     curr_utilities[~cond] = curr_unemployed_utility
     
-    # Initialize vector of utilities for candidate positions
+    # Initialize vector of expected utilities for candidate positions
     cand_utilities = np.zeros(len(employmentstatus))
 
-    # Candidate utility if worker is hired (and thus employed)
+    # Candidate expected utility if worker is hired (and thus employed)
     part0 = (gamma**(ages))/(1-gamma)
     part1 = (cand_wages + nonlabour_incomes)
     part2 = consumption_prefs**consumption_prefs
     part3 = ((1-consumption_prefs)/(cand_wages))**(1-consumption_prefs)
  
-    # Update candidate utilities
+    # Update candidate expected utilities
     cand_utilities = part0*part1*part2*part3
 
     # Check if incentive compatibility holds (resulting in worker applying for candidate position)
