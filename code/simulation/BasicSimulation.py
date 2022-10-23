@@ -55,7 +55,7 @@ num_jobs = 36000000
 vacancy_rate = num_vac/num_jobs
 P = int(N*(1+vacancy_rate)) # number of positions in the model
 granularity = 1 # Granularity for timestep (1 = yearly, 12 = monthly, 52 = weekly, etc.)
-job_destruction_rate = 0.0463 # ratio of positions randomly destroyed in 1 iteration (Value from Aron's calibration)
+job_destruction_rate = 0.0463 # ratio of positions randomly destroyed in 1 iteration
 job_creation_rate = job_destruction_rate # ratio of positions randomly created in 1 iteration
 PD = int(job_destruction_rate*P) # Get the number of positions to be destroyed
 PC = int(job_creation_rate*P) # Get the number of positions to be created
@@ -144,7 +144,6 @@ input_data_dict_temp = copy.deepcopy(input_data_dict)
 ### Import simulation functions
 import ABMrun as sim
 
-steady_state_length = 250 # Number of rounds to estimate transition matrices in the steady state of the model
 fitrun_num = 10 # Run of calibration algorithm - leave as is
 sim_num = 15 #number of simulations to run in parallel during calibratiion - leave as is
 
