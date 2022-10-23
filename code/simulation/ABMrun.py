@@ -779,7 +779,6 @@ def run_simulation(input_data_dict):
     return sim_output
 
 
-# def extended_run_simulation(steady_state_length, input_data_dict):
 def extended_run_simulation(input_data_dict):
     
     """Run extended (original run to steady state + second period to capture steady state LFNs) simulation
