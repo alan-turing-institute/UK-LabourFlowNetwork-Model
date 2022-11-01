@@ -188,6 +188,36 @@ t1 = time.perf_counter()
 
 # NB: Should take roughly 1 minute to run a single simulation with 3500 agents
 print(f"It took {(t1-t0)/60} minutes to run a single simulation with {N} agents.")
+
+# Set plotting parameter
+maxval = max([reg_trans_mat.max().max(), sic_trans_mat.max().max(), soc_trans_mat.max().max(), \
+             normalized_transitions(statoff_reg_transition_matrix).max().max(), \
+             normalized_transitions(statoff_reg_transition_matrix).max().max(), \
+             normalized_transitions(statoff_reg_transition_matrix).max().max()])
+
+# Plot of job-to-job transitions
+plt.figure(1, figsize=(15.5,4))
+
+plt.subplot(131)
+g4=sns.heatmap(normalized_transitions(statoff_reg_transition_matrix), linewidth=0.05, cmap="magma_r", vmin=0, vmax=maxval, cbar_ax=None)
+g4.set_xlabel("Next geographical region")
+g4.set_ylabel("Previous geographical region")
+g4.set_title("Geographical transition densities (simulated)")
+
+plt.subplot(132)
+g5=sns.heatmap(normalized_transitions(statoff_sic_transition_matrix), linewidth=0.05, cmap="magma_r", vmin=0, vmax=maxval, cbar_ax=None)
+g5.set_xlabel("Next industry")
+g5.set_ylabel("Previous industry")
+g5.set_title("Industry transition densities (simulated)")
+
+plt.subplot(133)
+g6=sns.heatmap(normalized_transitions(statoff_soc_transition_matrix) , linewidth=0.05, cmap="magma_r", vmin=0, vmax=maxval, cbar_ax=None)
+g6.set_xlabel("Next occupation")
+g6.set_ylabel("Previous occupation")
+g6.set_title("Occupation transition densities (simulated)")
+
+plt.tight_layout()
+plt.show()
                 
 #Compare empirical transition probability matrix with similarity matrix
 # Regions
