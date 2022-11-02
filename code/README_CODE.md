@@ -38,26 +38,26 @@ Below we detail the suggested run order for these scripts.
 ### Pre-processing
 
 1. **LFS data collection:** this should *always* be run before non-LFS data collection.
-    1.  ActivationRateAnalysis.py
-    2. IndividualAttributesAnalysis.py
-    3. JobDistributionAnalysis.py
-    4. TransitionMatrixGeneration.py
+    1.  [ActivationRateAnalysis.py](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/preprocessing/LFS%20data%20collection/ActivationRateAnalysis.py)
+    2. [IndividualAttributesAnalysis.py](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/preprocessing/LFS%20data%20collection/IndividualAttributesAnalysis.py)
+    3. [JobDistributionAnalysis.py](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/preprocessing/LFS%20data%20collection/JobDistributionAnalysis.py)
+    4. [TransitionMatrixGeneration.py](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/preprocessing/LFS%20data%20collection/TransitionMatrixGeneration.py)
 2. **Non-LFS data collection:** should *always* be run after LFS data collection, and before pre-simulation processing, as scripts depend on files produced during the LFS data collection step.
-    1. region_similarity.py
-    2. sic_similarity.py 
-    3. soc_skillgetter.py
-    4. soc_similarity.py - should *always* be run after soc_skillgetter.py, as dependent on a file produced by that script.
+    1. [region_similarity.py](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/preprocessing/non-LFS%20data%20collection/region_similarity.py)
+    2. [sic_similarity.py](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/preprocessing/non-LFS%20data%20collection/sic_similarity.py)
+    3. [soc_skillgetter.py](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/preprocessing/non-LFS%20data%20collection/soc_skillgetter.pyy)
+    4. [soc_similarity.py](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/preprocessing/non-LFS%20data%20collection/soc_similarity.py) - should *always* be run after soc_skillgetter.py, as dependent on a file produced by that script.
 3. **Pre-simulation processing:** should *always* be run after both data collection steps, as scripts depend on files produced at those stages.
-    1. DataReweighter.py
-    2. ExpandedSimilarityMatrixGeneration.py
+    1. [DataReweighter.py](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/preprocessing/pre-simulation%20processing/DataReweighter.py)
+    2. [ExpandedSimilarityMatrixGeneration.py](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/preprocessing/pre-simulation%20processing/ExpandedSimilarityMatrixGeneration.py)
 
 ### Simulation
 
-1. **Calibration:** run one of Calibration.py, Calibration.ipynb - both perform calibration routine.
-2. **Basic simulation:** run one of BasicSimulation.py, BasicSimulation.ipynb - both run a single simulation using the parameters calibrated in the previous step. This can be used as a quick ''sense check'' on the results of the calibration procedure.
-3. **Shock simulation:** run one of ShockSimulation.py, ShockSimulation.ipynb - both run a set of simulations where a shock has been introduced.
+1. **Calibration:** run one of [Calibration.py](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/simulation/Calibration.py), [Calibration.ipynb](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/simulation/Calibration.ipynb) - both perform calibration routine.
+2. **Basic simulation:** run one of [BasicSimulation.py](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/simulation/BasicSimulation.py), [BasicSimulation.ipynb](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/simulation/BasicSimulation.ipynb) - both run a single simulation using the parameters calibrated in the previous step. This can be used as a quick ''sense check'' on the results of the calibration procedure.
+3. **Shock simulation:** run one of [ShockSimulation.py](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/simulation/ShockSimulation.py), [ShockSimulation.ipynb](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/simulation/ShockSimulation.ipynb) - both run a set of simulations where a shock has been introduced.
 
-ABMrun.py is not run as a standalone, but is called within the abovementioned simulation scripts.
+[ABMrun.py](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/simulation/ABMrun.py) is not run as a standalone, but is called within the abovementioned simulation scripts.
 
 ## File Dependencies
 
