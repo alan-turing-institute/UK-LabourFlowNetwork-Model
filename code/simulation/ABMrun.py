@@ -3,7 +3,7 @@
 """
 Created on Fri Sep 24 10:22:57 2021
 
-Code running simulations for the UK labour market model
+Code containing all functions needed to run the UK Labour Flow Network model.
 NB: Throughout we use the acronyms SIC for "Standard Industrial Classification", and SOC for "Standard Occupational Classification"
 
 @author: Kathyrn R Fair
