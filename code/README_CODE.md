@@ -56,3 +56,28 @@ Below we detail the suggested run order for these scripts.
 1. **Calibration:** run one of Calibration.py, Calibration.ipynb - both perform calibration routine.
 2. **Basic simulation:** run one of BasicSimulation.py, BasicSimulation.ipynb - both run a single simulation using the parameters calibrated in the previous step. This can be used as a quick ''sense check'' on the results of the calibration procedure.
 3. **Shock simulation:** run one of ShockSimulation.py, ShockSimulation.ipynb - both run a set of simulations where a shock has been introduced.
+
+ABMrun.py is not run as a standalone, but is called within the abovementioned simulation scripts.
+
+## File Dependencies
+
+The following files, produced during the pre-processing stage, should be placed in the data folder before running any simulations or calibration, as they are necessary inputs. The placeholders regvar, sicvar, and socvar indicate the variables the user has chosen to describe geographical region, industry, and occupation, and can be defined within the scripts.
+
+- activation_dict.txt
+- income_dict_LFS_{regvar}_{sicvar}_{socvar}.txt
+- region_transitiondensity_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv
+- sic_transitiondensity_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv
+- soc_transitiondensity_empirical_LFS_{regvar}_{sicvar}_{socvar}.csv
+- reg_expanded_similaritymat_LFS.sav
+- sic_expanded_similaritymat_LFS.sav
+- soc_expanded_similaritymat_LFS.sav
+- positiondist_reweighted_LFS_{regvar}_{sicvar}_{socvar}.csv
+- age_dist_reweighted_LFS_{regvar}_{sicvar}_{socvar}.csv
+- consumptionpref_dist_reweighted_LFS_{regvar}_{sicvar}_{socvar}.csv
+
+**Note:** in order to run BasicSimulation.py/.ipynb or ShockSimulation.py/.ipynb you will also require the files containing the calibrated parameters, namely:
+- graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_reg_scost_mat_LFS.sav
+- graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_sic_scost_mat_LFS.sav
+- graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_soc_scost_mat_LFS.sav
+
+All other required files are provided in the data folder of this repository.
