@@ -3,7 +3,7 @@
 """
 Created on Wed Nov 17 09:21:37 2021
 
-Code to calibrate UK labour market model
+Code to calibrate UK labour flow network model
 NB: Throughout we use the acronyms SIC for "Standard Industrial Classification", and SOC for "Standard Occupational Classification"
 
 @author: Kathyrn R Fair
