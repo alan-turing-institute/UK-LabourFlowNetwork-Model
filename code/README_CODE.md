@@ -35,7 +35,7 @@ This README file contains descriptions of all scripts used to run simulations, a
 
 Below we detail the suggested run order for these scripts.
 
-Pre-processing:
+### Pre-processing
 
 1. **LFS data collection:** this should *always* be run before non-LFS data collection.
     1.  ActivationRateAnalysis.py
@@ -47,6 +47,12 @@ Pre-processing:
     2. sic_similarity.py 
     3. soc_skillgetter.py
     4. soc_similarity.py - should *always* be run after soc_skillgetter.py, as dependent on a file produced by that script.
-3. **Pre-simulation processing:** should *always* be run after both data collection stages, as scripts depend on files produced at those stages.
+3. **Pre-simulation processing:** should *always* be run after both data collection steps, as scripts depend on files produced at those stages.
     1. DataReweighter.py
     2. ExpandedSimilarityMatrixGeneration.py
+
+### Simulation
+
+1. **Calibration:** run one of Calibration.py, Calibration.ipynb - both perform calibration routine.
+2. **Basic simulation:** run one of BasicSimulation.py, BasicSimulation.ipynb - both run a single simulation using the parameters calibrated in the previous step. This can be used as a quick ''sense check'' on the results of the calibration procedure.
+3. **Shock simulation:** run one of ShockSimulation.py, ShockSimulation.ipynb - both run a set of simulations where a shock has been introduced.
