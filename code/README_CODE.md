@@ -61,7 +61,7 @@ ABMrun.py is not run as a standalone, but is called within the abovementioned si
 
 ## File Dependencies
 
-The following files, produced during the pre-processing stage, should be placed in the data folder before running any simulations or calibration, as they are necessary inputs. The placeholders regvar, sicvar, and socvar indicate the variables the user has chosen to describe geographical region, industry, and occupation, and can be defined within the scripts.
+The following files, produced during the pre-processing stage, should be placed in the data folder before running any simulations or calibration, as they are necessary inputs. The placeholders bracketed with {} are defined within the scripts.
 
 - activation_dict.txt
 - income_dict_LFS_{regvar}_{sicvar}_{socvar}.txt
