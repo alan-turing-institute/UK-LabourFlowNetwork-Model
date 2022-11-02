@@ -37,16 +37,16 @@ Below we detail the suggested run order for these scripts.
 
 Pre-processing:
 
-1. LFS data collection: this should *always* be run before non-LFS data collection.
+1. **LFS data collection:** this should *always* be run before non-LFS data collection.
     1.  ActivationRateAnalysis.py
     2. IndividualAttributesAnalysis.py
     3. JobDistributionAnalysis.py
     4. TransitionMatrixGeneration.py
-2. Non-LFS data collection: should *always* be run after LFS data collection, and before pre-simulation processing, as scripts depend on files produced during the LFS data collection step.
+2. **Non-LFS data collection:** should *always* be run after LFS data collection, and before pre-simulation processing, as scripts depend on files produced during the LFS data collection step.
     1. region_similarity.py
     2. sic_similarity.py 
     3. soc_skillgetter.py
     4. soc_similarity.py - should *always* be run after soc_skillgetter.py, as dependent on a file produced by that script.
-3. Pre-simulation processing: should *always* be run after both data collection stages, as scripts depend on files produced at those stages.
+3. **Pre-simulation processing:** should *always* be run after both data collection stages, as scripts depend on files produced at those stages.
     1. DataReweighter.py
     2. ExpandedSimilarityMatrixGeneration.py
