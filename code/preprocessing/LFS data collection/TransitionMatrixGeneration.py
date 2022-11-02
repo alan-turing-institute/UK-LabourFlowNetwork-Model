@@ -3,7 +3,7 @@
 """
 Created on Tue Dec 7 10:37:21 2021
 
-Code producing job to job transition matrices from UK Labour Force Survey (LFS)
+Code producing job to job transition density matrices from UK Labour Force Survey (LFS)
 
 @author: Kathyrn R Fair
 
