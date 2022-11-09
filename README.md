@@ -2,7 +2,7 @@
 
 This public repository contains code and data associated with the UK LFN model. This model emerges the LFN describing the pattern of labour mobility (i.e. job-to-job transitions) within the UK labour market. The associated preprint is posted at TKTKTK.
 
-This project was developed by [K.R. Fair](https://www.turing.ac.uk/people/researchers/kathyrn-r-fair) and [O.A. Guerrero](http://oguerr.com/), within the Public Policy Programme at the [Alan Turing Institute](https://www.turing.ac.uk/). ***acknowledge the EPSRC grant, as well as the interaction with BEIS. Please direct all correspondence to K.R. Fair (kfair@turing.ac.uk).
+This project was developed by [K.R. Fair](https://www.turing.ac.uk/people/researchers/kathyrn-r-fair) and [O.A. Guerrero](http://oguerr.com/), within the Public Policy Programme at the [Alan Turing Institute](https://www.turing.ac.uk/). ***acknowledge the EPSRC grant, and has benefitted greatly from interactions between the researchers and [BEIS]9https://www.gov.uk/government/organisations/department-for-business-energy-and-industrial-strategy). Please direct all correspondence to K.R. Fair (kfair@turing.ac.uk).
 
 To run a set of simulations, make all required parameter selections (detailed within each script) and launch the script. The expected runtime varies between scripts, but an individual simulation with 3500 agents should run in approximately 1 minute.
 
