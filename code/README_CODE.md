@@ -75,7 +75,7 @@ The following files, produced during the pre-processing stage, should be placed 
 - age_dist_reweighted_LFS_{regvar}_{sicvar}_{socvar}.csv
 - consumptionpref_dist_reweighted_LFS_{regvar}_{sicvar}_{socvar}.csv
 
-**Note:** in order to run BasicSimulation.py/.ipynb or ShockSimulation.py/.ipynb you will also require the files containing the calibrated parameters, namely:
+**Note:** in order to run BasicSimulation.py/.ipynb or ShockSimulation.py/.ipynb you will also require the files (generated using Calibration.py/ipynb) containing the calibrated parameters, namely:
 - graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_reg_scost_mat_LFS.sav
 - graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_sic_scost_mat_LFS.sav
 - graddescent_N{N}_reps{sim_num}_GDruns{fitrun_num}_ssthresh{ss_threshold}_nus_soc_scost_mat_LFS.sav
