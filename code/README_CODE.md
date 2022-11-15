@@ -2,6 +2,8 @@
 
 This README file contains descriptions of all scripts used to run simulations, and to generate datasets required to run simulations. Throughout we use LFS to refer to the UK Labour Force Survey.
 
+To run a set of simulations, make all required parameter selections (detailed within each script) and launch the script. The expected runtime varies between scripts, but an individual simulation with 3500 agents should run in approximately 1 minute.
+
 ## Folder Structure
 
 ```               
