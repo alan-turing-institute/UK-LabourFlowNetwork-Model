@@ -4,9 +4,9 @@ This public repository contains code and data associated with the UK LFN model. 
 
 This project was developed by [K.R. Fair](https://www.turing.ac.uk/people/researchers/kathyrn-r-fair) and [O.A. Guerrero](http://oguerr.com/), within the Public Policy Programme at the [Alan Turing Institute](https://www.turing.ac.uk/). This work was supported by Wave 1 of The UKRI Strategic Priorities Fund under the EPSRC Grant EP/W006022/1, particularly the "Shocks and Resilience" theme within that grant & The Alan Turing Institute. We would like to thank Áron Pap for conducting preliminary explorations of this topic, and Andy Jones and his team at [BEIS](https://www.gov.uk/government/organisations/department-for-business-energy-and-industrial-strategy) for their interactions with us throughout this project. Please direct all correspondence to K.R. Fair (kfair@turing.ac.uk).
 
-To run a set of simulations, make all required parameter selections (detailed within each script) and launch the script. The expected runtime varies between scripts, but an individual simulation with 3500 agents should run in approximately 1 minute.
+In the code folder you will find all instructions for running simulations [here](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/README_CODE.md).
 
-**NOTE:** In order to run simulations, the user will need to generate input datasets from the UK Labour Force Survey (LFS) longitudinal dataset, as well as the O-NET database as these data cannot be posted publicly in this repository.
+**NOTE:** In order to run simulations, the user will need to generate input datasets from the UK Labour Force Survey (LFS) longitudinal dataset, as well as the O-NET database as these data cannot be posted publicly in this repository. All data that can be posted publicly is described [here](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/data/README_data.md) within the data folder.
 
 ## Repository Structure
 
