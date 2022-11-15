@@ -2,7 +2,7 @@
 
 This public repository contains code and data associated with the UK LFN model. This model emerges the LFN describing the pattern of labour mobility (i.e. job-to-job transitions) within the UK labour market. The associated preprint is posted at TKTKTK.
 
-This project was developed by [K.R. Fair](https://www.turing.ac.uk/people/researchers/kathyrn-r-fair) and [O.A. Guerrero](http://oguerr.com/), within the Public Policy Programme at the [Alan Turing Institute](https://www.turing.ac.uk/). This work was supported by Wave 1 of The UKRI Strategic Priorities Fund under the EPSRC Grant EP/W006022/1, particularly the "Shocks and Resilience" theme within that grant & The Alan Turing Institute. We would like to thank Áron Pap for conducting preliminary explorations of this topic, and Andy Jones and his team at [BEIS](https://www.gov.uk/government/organisations/department-for-business-energy-and-industrial-strategy) for their interactions with us throughout this project. Please direct all correspondence to K.R. Fair (kfair@turing.ac.uk).
+This project was developed by [K.R. Fair](https://www.turing.ac.uk/people/researchers/kathyrn-r-fair) and [O.A. Guerrero](http://oguerr.com/), within the Public Policy Programme at the [Alan Turing Institute](https://www.turing.ac.uk/). Please direct all correspondence to K.R. Fair (kfair@turing.ac.uk).
 
 You will find all instructions for running simulations [here](https://github.com/alan-turing-institute/UK-LabourFlowNetwork-Model/blob/main/code/README_CODE.md) within the code folder.
 
@@ -45,8 +45,8 @@ We provide several annotated Jupyter notebooks in the code/simulation folder wit
 All software should install within a few minutes on a standard computer, the versions listed here are those the scripts have been tested on.
 
 * Python Version 3.9.12 https://www.python.org/downloads/
-* Spyder Version 5.3.3 (IDE for R) https://www.spyder-ide.org/
+* Spyder Version 5.3.3 (IDE for python) https://www.spyder-ide.org/
 
-<!--## Acknowledgements
+## Acknowledgements
 
-We thank Andy Jones and his team at BEIS, Áron Pap, and Dr. Alden Conner for their contributions to the development of this model and associated repository.-->
+This work was supported by Wave 1 of The UKRI Strategic Priorities Fund under the EPSRC Grant EP/W006022/1, particularly the "Shocks and Resilience" theme within that grant & The Alan Turing Institute. We would like to thank Áron Pap for conducting preliminary explorations of this topic, and Andy Jones and his team at [BEIS](https://www.gov.uk/government/organisations/department-for-business-energy-and-industrial-strategy) for their interactions with us throughout this project. We also thank Dr. Alden Conner for her contributions to the development of this repository.
