@@ -12,7 +12,7 @@ body:
   - type: input
     id: contact
     attributes:
-      label: Contact Details
+      label: Contact details
       description: Name and email
     validations:
       required: false
