@@ -1,6 +1,6 @@
 # UK Labour Flow Network (LFN) Model **[UNDER CONSTRUCTION]**
 
-This public repository contains code and data associated with the UK LFN model. This model emerges the LFN describing the pattern of labour mobility (i.e. job-to-job transitions) within the UK labour market. The associated preprint is posted [here](https://arxiv.org/abs/2301.07979).
+This public repository contains code and data associated with the UK LFN model. This model emerges the LFN describing the pattern of labour mobility (i.e. job-to-job transitions) within the UK labour market. The associated pre-print is posted [here](https://arxiv.org/abs/2301.07979).
 
 This project was developed by [K.R. Fair](https://www.turing.ac.uk/people/researchers/kathyrn-r-fair) and [O.A. Guerrero](http://oguerr.com/), within the Public Policy Programme at the [Alan Turing Institute](https://www.turing.ac.uk/). Please direct all correspondence to K.R. Fair (kfair@turing.ac.uk).
 
