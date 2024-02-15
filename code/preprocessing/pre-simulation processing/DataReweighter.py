@@ -40,12 +40,17 @@ df_positions_revised = (pd.DataFrame(np.repeat(df.values,df.value.astype(int),ax
 ### Write re-weighted job distribution to file
 df_positions_revised[['pos_node_ids', 'reg_id', 'sic_id', 'soc_id']].to_csv(f'{home}data/positiondist_reweighted_LFS_{regvar}_{sicvar}_{socvar}.csv', index=False)
 
+# # Generate summary data frame grouped by industry
+# df_ind = df_positions.groupby(['sic_id'])['LGWT18'].agg(weight_sum='sum').reset_index().copy()
+# df_ind['normalised_sum'] = df_ind.weight_sum.copy()/df_ind.weight_sum.sum()
+
 # Generate summary data frame grouped by industry
-df_ind = df_positions.groupby(['reg_id'])['LGWT18'].agg(weight_sum='sum').reset_index().copy()
-df_ind['normalised_sum'] = df_ind.weight_sum.copy()/df_ind.weight_sum.sum()
+df_ind_check = pd.concat([df_positions_revised.groupby('sic_id', as_index=False).size().copy()], axis=1)
+df_ind_check.rename(columns={df_ind_check.columns[1]:"counts"}, inplace=True)
+df_ind_check['normalised_sum'] = df_ind_check.counts.copy()/df_ind_check.counts.sum()
 
 ### Write re-weighted jobs by industry list to file
-df_ind.to_csv(f'{home}data/positionsbyindustry_LFS_{regvar}_{sicvar}_{socvar}.csv', index=False)
+df_ind_check.to_csv(f'{home}data/positionsbyindustry_LFS_{regvar}_{sicvar}_{socvar}.csv', index=False)
 
 ### REWEIGHT CONSUMPTION PREFERENCE DISTRIBUTION ###
 
